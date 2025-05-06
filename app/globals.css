@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "@syncfusion/ej2-base/styles/material.css";
+@import "@syncfusion/ej2-react-schedule/styles/material.css";
+@import "@syncfusion/ej2-react-dropdowns/styles/material.css";
+@import "@syncfusion/ej2-react-inputs/styles/material.css";
 
 :root {
   --background: #ffffff;
@@ -12,12 +16,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
