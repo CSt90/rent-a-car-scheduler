@@ -13,7 +13,7 @@ import { Week } from '@syncfusion/ej2-react-schedule';
  */
 const TimelineResource = () => {
 
-    registerLicense('Ngo9BigBOggjHTQxAR8/V1NNaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXpedXVURWRYU0F0WEdWYUA=');
+    registerLicense('');
 
     const data = extend([], dataSource.fleetData, null, true);
     let scheduleObj = useRef(null);
