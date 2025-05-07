@@ -58,30 +58,30 @@ export default function Home() {
               status={available.status}
             />
           ))}
-        <hr className="w-full border-b-[1px] border-gray-400" />
-
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>Μη διαθέσιμα αυτοκίνητα</AccordionTrigger>
-            <AccordionContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {fleet_data
-                  .filter((car) => car.status !== "Available")
-                  .map((available) => (
-                    <CarDataCard
-                      key={available.carId}
-                      carModel={available.carModel}
-                      licensePlate={available.licensePlate}
-                      color={available.color}
-                      location={available.location}
-                      status={available.status}
-                    />
-                  ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
       </main>
+      <hr className="w-full border-b-[1px] border-gray-400" />
+
+      <Accordion type="single" collapsible className="w-full p-4">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Μη διαθέσιμα αυτοκίνητα</AccordionTrigger>
+          <AccordionContent>
+            <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {fleet_data
+                .filter((car) => car.status !== "Available")
+                .map((available) => (
+                  <CarDataCard
+                    key={available.carId}
+                    carModel={available.carModel}
+                    licensePlate={available.licensePlate}
+                    color={available.color}
+                    location={available.location}
+                    status={available.status}
+                  />
+                ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
       {/* Footer */}
       <footer className="bg-white text-center text-sm text-gray-500 py-4">
