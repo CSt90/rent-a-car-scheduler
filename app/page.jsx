@@ -5,14 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import fleet_data from "@/app/fleet_data.json";
 import CarDataCard from "@/components/CarDataCard";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import UserMenu from "@/components/UserMenu";
+// import {
+//   Accordion,
+//   AccordionContent,
+//   AccordionItem,
+//   AccordionTrigger,
+// } from "@/components/ui/accordion";
 import { MultiSelect } from "@/components/multi-select";
-import { Cat, Dog, Fish, Rabbit, Turtle } from "lucide-react";
+import { Menu } from "lucide-react";
 
 const statusList = [
   { value: "Available", label: "Διαθέσιμο" },
@@ -36,7 +37,10 @@ export default function Home() {
       {/* Header */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
         <h1 className="text-xl font-bold">Διαχείρηση στόλου</h1>
-        <Button variant="outline">Logout</Button>
+        {/* <Button variant="outline">
+          <Menu />
+        </Button> */}
+        <UserMenu />
       </header>
 
       {/* Date/Time Selectors */}
