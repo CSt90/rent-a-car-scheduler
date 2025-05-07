@@ -274,7 +274,7 @@ export const MultiSelect = (
                       onSelect={handleClear}
                       className="flex-1 justify-center cursor-pointer"
                     >
-                      Clear
+                      Καθαρισμός
                     </CommandItem>
                     <Separator
                       orientation="vertical"
@@ -286,7 +286,7 @@ export const MultiSelect = (
                   onSelect={() => setIsPopoverOpen(false)}
                   className="flex-1 justify-center cursor-pointer max-w-full"
                 >
-                  Close
+                  Κλείσιμο
                 </CommandItem>
               </div>
             </CommandGroup>
