@@ -64,18 +64,20 @@ export default function Home() {
           <AccordionItem value="item-1">
             <AccordionTrigger>Μη διαθέσιμα αυτοκίνητα</AccordionTrigger>
             <AccordionContent>
-              {fleet_data
-                .filter((car) => car.status !== "Available")
-                .map((available) => (
-                  <CarDataCard
-                    key={available.carId}
-                    carModel={available.carModel}
-                    licensePlate={available.licensePlate}
-                    color={available.color}
-                    location={available.location}
-                    status={available.status}
-                  />
-                ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {fleet_data
+                  .filter((car) => car.status !== "Available")
+                  .map((available) => (
+                    <CarDataCard
+                      key={available.carId}
+                      carModel={available.carModel}
+                      licensePlate={available.licensePlate}
+                      color={available.color}
+                      location={available.location}
+                      status={available.status}
+                    />
+                  ))}
+              </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
