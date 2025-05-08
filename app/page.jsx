@@ -14,6 +14,7 @@ import UserMenu from "@/components/UserMenu";
 // } from "@/components/ui/accordion";
 import { MultiSelect } from "@/components/multi-select";
 import { Menu } from "lucide-react";
+import { SearchBar } from "@/components/SearchBar";
 
 const statusList = [
   { value: "Available", label: "Διαθέσιμο" },
@@ -22,8 +23,17 @@ const statusList = [
   { value: "Maintenance", label: "Συντήρηση" },
 ];
 
-export default function Home() {
+export default function Home(searchParams) {
+  const query = searchParams.q || "";
   const [statusFilter, setStatusFilter] = useState(["Available"]);
+  let filtered;
+  query !== ""
+    ? (filtered = fleet_data.filter((item) =>
+        item.carModel.toLowerCase().includes(query.toLowerCase())
+      ))
+    : (filtered = []);
+
+  // console.log(filtered);
 
   const linkButtonStyle =
     "px-4 py-3 rounded-lg border-[2px] border-cyan-300 text-cyan-300 hover:bg-cyan-300/20 active:bg-cyan-300/20 text-center";
@@ -63,10 +73,20 @@ export default function Home() {
 
       {/* Search Bar */}
       <section className="p-4">
-        <Input
+        {/* <Input
           className="text-sm"
           placeholder="Αναζήτηση μοντέλου, πινακίδας ή κατηγορίας"
-        />
+        /> */}
+        {/* <SearchBar />
+        <ul className="space-y-2">
+          {filtered.map((item) => (
+            <li key={item.carID} className="text-lg font-medium">
+              {item.carModel}
+            </li>
+          ))}
+          {!filtered.length && <p>No results found.</p>}
+        </ul> */}
+        {/* NEEDS FIXING*/}
       </section>
 
       {/* MultiSelect search filter */}
@@ -102,6 +122,7 @@ export default function Home() {
           .map((car) => (
             <CarDataCard
               key={car.carId}
+              carId={car.carId}
               carModel={car.carModel}
               licensePlate={car.licensePlate}
               color={car.color}

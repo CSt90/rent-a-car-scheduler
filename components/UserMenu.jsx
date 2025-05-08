@@ -8,7 +8,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -43,9 +42,9 @@ const UserMenu = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem variant="secondary" className={"bg-gray-200/65"}>
             <a
-              href={`${_BASE_URL_}/manage`}
+              href={`${_BASE_URL_}/manage/fleet`}
               className="flex flex-row items-center gap-2"
             >
               <ChartNoAxesGantt />

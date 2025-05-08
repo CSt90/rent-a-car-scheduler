@@ -1,7 +1,7 @@
 import React from "react";
 
 const MonitorFleet = () => {
-  return <div>Monitor Fleet</div>;
+  return <div>Επισκόπηση</div>;
 };
 
 export default MonitorFleet;
