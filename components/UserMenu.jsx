@@ -44,11 +44,11 @@ const UserMenu = () => {
         <DropdownMenuGroup>
           <DropdownMenuItem variant="secondary" className={"bg-gray-200/65"}>
             <a
-              href={`${_BASE_URL_}/manage/fleet`}
+              href={`${_BASE_URL_}`}
               className="flex flex-row items-center gap-2"
             >
               <ChartNoAxesGantt />
-              Διαχείρηση στόλου
+              Διαθεσιμότητα στόλου
             </a>
           </DropdownMenuItem>
           <DropdownMenuItem>

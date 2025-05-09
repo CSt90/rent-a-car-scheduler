@@ -4,8 +4,21 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import fleet_data from "@/app/fleet_data.json";
+/* RESULT FROM DB 
+   Select cars from bookings 
+   where todate>="dateGiven" 
+   and time>="timeGiven" 
+*/
 import CarDataCard from "@/components/CarDataCard";
 import UserMenu from "@/components/UserMenu";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 // import {
 //   Accordion,
 //   AccordionContent,
@@ -13,7 +26,9 @@ import UserMenu from "@/components/UserMenu";
 //   AccordionTrigger,
 // } from "@/components/ui/accordion";
 import { MultiSelect } from "@/components/multi-select";
+import { Label } from "@/components/ui/label";
 import { Menu } from "lucide-react";
+import { CalendarSearch } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
 
 const statusList = [
@@ -24,14 +39,41 @@ const statusList = [
 ];
 
 export default function Home(searchParams) {
+  /* MANIPULATE DB QUERY RESULT
+  let temp_fleet = fleet_data;
+  temp_fleet.forEach((car) => {
+    car.email = "bitch";
+  });
+  console.log(temp_fleet);
+  */
+
+  const [fromDate, setFromDate] = useState("");
+  const [fromTime, setFromTime] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [toTime, setToTime] = useState("");
+  const [filtered, setFiltered] = useState(fleet_data);
+
+  const handleApply = () => {
+    if (!date || !time) return;
+
+    const filterDateTime = new Date(`${date}T${time}`);
+
+    const result = fleet.filter((car) => {
+      const carAvailable = new Date(car.availableAfter);
+      return carAvailable > filterDateTime;
+    });
+
+    setFiltered(result);
+  };
+
   const query = searchParams.q || "";
   const [statusFilter, setStatusFilter] = useState(["Available"]);
-  let filtered;
+  let filtered_fleet;
   query !== ""
-    ? (filtered = fleet_data.filter((item) =>
+    ? (filtered_fleet = fleet_data.filter((item) =>
         item.carModel.toLowerCase().includes(query.toLowerCase())
       ))
-    : (filtered = []);
+    : (filtered_fleet = []);
 
   // console.log(filtered);
 
@@ -46,15 +88,102 @@ export default function Home(searchParams) {
     <div className="min-h-screen bg-gray-50 text-gray-800 font-[family-name:var(--font-geist-sans)]">
       {/* Header */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Διαχείρηση στόλου</h1>
+        <h1 className="text-xl font-bold">Διαθεσιμότητα στόλου</h1>
         {/* <Button variant="outline">
           <Menu />
         </Button> */}
         <UserMenu />
       </header>
 
+      <Dialog className={""}>
+        <DialogTrigger asChild>
+          <Button className="w-[92.5vw] sm:w-[97.5vw] mt-4 mx-4 uppercase text-[12px] font-bold tracking-wide font-[family-name:var(--font-geist-sans)]">
+            <CalendarSearch /> Αναζητηση περιοδου
+          </Button>
+        </DialogTrigger>
+
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle></DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 font-[family-name:var(--font-geist-sans)]">
+            <div className="flex flex-row gap-2 items-center justify-between">
+              <div className="space-y-1">
+                <Label
+                  htmlFor="date"
+                  className={"uppercase text-[10px] font-bold tracking-wide"}
+                >
+                  Απο Ημερομηνια
+                </Label>
+                <Input
+                  id="fromDate"
+                  type="date"
+                  value={fromDate}
+                  className={"text-sm"}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-1">
+                <Label
+                  htmlFor="date"
+                  className={"uppercase text-[10px] font-bold tracking-wide"}
+                >
+                  Εως Ημερομηνια
+                </Label>
+                <Input
+                  id="toDate"
+                  type="date"
+                  value={toDate}
+                  className={"text-sm"}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex flex-row gap-2 items-center justify-between">
+              <div className="space-y-1 flex-1">
+                <Label
+                  htmlFor="time"
+                  className={"uppercase text-[10px] font-bold tracking-wide"}
+                >
+                  Απο ωρα
+                </Label>
+                <Input
+                  id="fromTime"
+                  type="time"
+                  value={fromTime}
+                  className={"text-sm"}
+                  onChange={(e) => setFromTime(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1 flex-1">
+                <Label
+                  htmlFor="time"
+                  className={"uppercase text-[10px] font-bold tracking-wide"}
+                >
+                  Εως ωρα
+                </Label>
+                <Input
+                  id="toTime"
+                  type="time"
+                  value={toTime}
+                  className={"text-sm"}
+                  onChange={(e) => setToTime(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="pt-4">
+            <Button variant="secondary">Άκυρο</Button>
+            <Button onClick={handleApply}>Εφαρμογή</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Date/Time Selectors */}
-      <section className="p-4 bg-white border-b">
+      {/* <section className="p-4 bg-white border-b">
         <div className="flex flex-row gap-3 sm:flex-row sm:gap-6">
           <div className="flex-1">
             <label className="text-[10px] font-sm uppercase font-bold">
@@ -69,15 +198,15 @@ export default function Home(searchParams) {
             <Input type="time" className="mt-1 text-sm" />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Search Bar */}
-      <section className="p-4">
-        {/* <Input
+      {/*<section className="p-4">
+         <Input
           className="text-sm"
           placeholder="Αναζήτηση μοντέλου, πινακίδας ή κατηγορίας"
         /> */}
-        {/* <SearchBar />
+      {/* <SearchBar />
         <ul className="space-y-2">
           {filtered.map((item) => (
             <li key={item.carID} className="text-lg font-medium">
@@ -85,12 +214,12 @@ export default function Home(searchParams) {
             </li>
           ))}
           {!filtered.length && <p>No results found.</p>}
-        </ul> */}
-        {/* NEEDS FIXING*/}
-      </section>
+        </ul>         
+      </section>*/}
+      {/* NEEDS FIXING*/}
 
       {/* MultiSelect search filter */}
-      <section className="p-4">
+      {/* <section className="p-4">
         <MultiSelect
           options={statusList}
           onValueChange={setStatusFilter}
@@ -100,7 +229,7 @@ export default function Home(searchParams) {
           animation={2}
           maxCount={4}
         />
-      </section>
+      </section> */}
 
       {/* Car Cards */}
       <main className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

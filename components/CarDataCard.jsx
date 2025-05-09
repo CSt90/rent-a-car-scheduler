@@ -30,9 +30,11 @@ const CarDataCard = (props) => {
   return (
     <Card className="gap-2">
       <div
-        className={`flex flex-row gap-1 text-sm ml-auto mr-4 px-2 -my-2 items-center ${statusColorAvailable} -py-1 rounded-xs`}
+        className={`flex flex-row gap-1 text-sm ml-auto mr-4 px-3 -my-[6px] items-center ${statusColorAvailable} py-[1px] pt-[2px] rounded-xl`}
       >
-        <span className={`${textColorAvailable} p-0 mb-[2px]`}>&#x25cf;</span>
+        <span className={`${textColorAvailable} p-0 -ml-1 mb-[2px]`}>
+          &#x25cf;
+        </span>
         <span
           className={`${textColorAvailable} text-xs font-semibold flex-end`}
         >
