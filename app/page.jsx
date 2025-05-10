@@ -30,7 +30,7 @@ import { Label } from "@/components/ui/label";
 import { Menu } from "lucide-react";
 import { CalendarSearch } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
-import DialogBlockItem from "@/components/DialogBlockItem";
+import DialogBlockRow from "@/components/DialogBlockRow";
 
 const statusList = [
   { value: "Available", label: "Διαθέσιμο" },
@@ -54,17 +54,40 @@ export default function Home(searchParams) {
   const [toTime, setToTime] = useState("");
   const [filtered, setFiltered] = useState(fleet_data);
 
+  const addLeadingZero = (x) => {
+    x = parseInt(x);
+    return x < 10 ? "0" + String(x) : String(x);
+  };
+
   const handleApply = () => {
-    if (!date || !time) return;
+    if (!fromDate || !fromTime) return;
+    let formattedFromDate =
+      fromDate.getFullYear() +
+      "-" +
+      addLeadingZero(fromDate.getMonth() + 1) +
+      "-" +
+      addLeadingZero(fromDate.getDate());
 
-    const filterDateTime = new Date(`${date}T${time}`);
+    let formattedToDate =
+      toDate.getFullYear() +
+      "-" +
+      addLeadingZero(toDate.getMonth() + 1) +
+      "-" +
+      addLeadingZero(toDate.getDate());
 
-    const result = fleet.filter((car) => {
-      const carAvailable = new Date(car.availableAfter);
-      return carAvailable > filterDateTime;
-    });
+    const filterFromDateTime = new Date(`${formattedFromDate}T${fromTime}`);
+    const filterToDateTime = new Date(`${formattedToDate}T${toTime}`);
 
-    setFiltered(result);
+    // console.log(formattedFromDate);
+    console.log(filterFromDateTime);
+    console.log(filterToDateTime);
+
+    // const result = fleet.filter((car) => {
+    //   const carAvailable = new Date(car.availableAfter);
+    //   return carAvailable > filterDateTime;
+    // });
+
+    // setFiltered(result);
   };
 
   const query = searchParams.q || "";
@@ -76,14 +99,8 @@ export default function Home(searchParams) {
       ))
     : (filtered_fleet = []);
 
-  // console.log(filtered);
-
   const linkButtonStyle =
     "px-4 py-3 rounded-lg border-[2px] border-cyan-300 text-cyan-300 hover:bg-cyan-300/20 active:bg-cyan-300/20 text-center";
-
-  // fleet_data.forEach((fdo) => {
-  //   console.log(fdo.carModel);
-  // });
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-[family-name:var(--font-geist-sans)]">
@@ -98,7 +115,7 @@ export default function Home(searchParams) {
 
       <Dialog className={""}>
         <DialogTrigger asChild>
-          <Button className="w-[92.5vw] sm:w-[97.5vw] mt-4 mx-4 uppercase  font-bold tracking-wide font-[family-name:var(--font-geist-sans)] items-center">
+          <Button className="w-[92.5vw] sm:w-[97.5vw] mt-4 mx-4 uppercase font-bold tracking-wide font-[family-name:var(--font-geist-sans)] items-center">
             <CalendarSearch />
             <span className="text-[12px]">Αναζητηση περιοδου</span>
           </Button>
@@ -111,77 +128,28 @@ export default function Home(searchParams) {
 
           <div className="space-y-4 font-[family-name:var(--font-geist-sans)]">
             <div className="flex flex-row gap-2 items-center justify-between">
-              <DialogBlockItem
-                labelHtmlFor="fromDate"
-                inputId="fromDate"
-                inputType="date"
-                inputValue={fromDate}
-                inputChangeFunc={setFromDate}
-                labelValue="Απο Ημερομηνια"
+              <DialogBlockRow
+                inputId1="fromDate"
+                inputId2="fromTime"
+                inputValue1={fromDate}
+                inputValue2={fromTime}
+                input1ChangeFunc={setFromDate}
+                input2ChangeFunc={setFromTime}
+                labelValue1="Απο Ημερομηνια"
+                labelValue2="Απο Ωρα"
               />
-              {/* <div className="space-y-1 flex-1">
-                <Label
-                  htmlFor="fromDate"
-                  className={"uppercase text-[10px] font-bold tracking-wide"}
-                >
-                  Απο Ημερομηνια
-                </Label>
-                <Input
-                  id="fromDate"
-                  type="date"
-                  value={fromDate}
-                  className={"text-sm"}
-                  onChange={(e) => setFromDate(e.target.value)}
-                />
-              </div> */}
-
-              <div className="space-y-1 flex-1">
-                <Label
-                  htmlFor="toDate"
-                  className={"uppercase text-[10px] font-bold tracking-wide"}
-                >
-                  Εως Ημερομηνια
-                </Label>
-                <Input
-                  id="toDate"
-                  type="date"
-                  value={toDate}
-                  className={"text-sm"}
-                  onChange={(e) => setToDate(e.target.value)}
-                />
-              </div>
             </div>
             <div className="flex flex-row gap-2 items-center justify-between">
-              <div className="space-y-1 flex-1">
-                <Label
-                  htmlFor="fromTime"
-                  className={"uppercase text-[10px] font-bold tracking-wide"}
-                >
-                  Απο ωρα
-                </Label>
-                <Input
-                  id="fromTime"
-                  type="time"
-                  value={fromTime}
-                  className={"text-sm"}
-                  onChange={(e) => setFromTime(e.target.value)}
-                />
-              </div>
-              <div className="space-y-1 flex-1">
-                <Label
-                  htmlFor="toTime"
-                  className={"uppercase text-[10px] font-bold tracking-wide"}
-                >
-                  Εως ωρα
-                </Label>
-                <Input
-                  id="toTime"
-                  type="time"
-                  value={toTime}
-                  className={"text-sm"}
-                  onChange={(e) => setToTime(e.target.value)}
-                />
-              </div>
+              <DialogBlockRow
+                inputId1="toDate"
+                inputId2="toTime"
+                inputValue1={toDate}
+                inputValue2={toTime}
+                input1ChangeFunc={setToDate}
+                input2ChangeFunc={setToTime}
+                labelValue1="Εως Ημερομηνια"
+                labelValue2="Εως Ωρα"
+              />
             </div>
           </div>
 
@@ -191,24 +159,6 @@ export default function Home(searchParams) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* Date/Time Selectors */}
-      {/* <section className="p-4 bg-white border-b">
-        <div className="flex flex-row gap-3 sm:flex-row sm:gap-6">
-          <div className="flex-1">
-            <label className="text-[10px] font-sm uppercase font-bold">
-              Ημερομηνια
-            </label>
-            <Input type="date" className="mt-1 text-sm" />
-          </div>
-          <div className="flex-1">
-            <label className="text-[10px] font-sm uppercase font-bold">
-              Ωρα
-            </label>
-            <Input type="time" className="mt-1 text-sm" />
-          </div>
-        </div>
-      </section> */}
 
       {/* Search Bar */}
       {/*<section className="p-4">
@@ -271,28 +221,6 @@ export default function Home(searchParams) {
           ))}
       </main>
       <hr className="w-full border-b-[1px] border-gray-400" />
-
-      {/* <Accordion type="single" collapsible className="w-full p-4">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Μη διαθέσιμα αυτοκίνητα</AccordionTrigger>
-          <AccordionContent>
-            <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {fleet_data
-                .filter((car) => car.status !== "Available")
-                .map((available) => (
-                  <CarDataCard
-                    key={available.carId}
-                    carModel={available.carModel}
-                    licensePlate={available.licensePlate}
-                    color={available.color}
-                    location={available.location}
-                    status={available.status}
-                  />
-                ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion> */}
 
       {/* Footer */}
       <footer className="bg-white text-center text-sm text-gray-500 py-4">
