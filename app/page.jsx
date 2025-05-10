@@ -30,6 +30,7 @@ import { Label } from "@/components/ui/label";
 import { Menu } from "lucide-react";
 import { CalendarSearch } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
+import DialogBlockItem from "@/components/DialogBlockItem";
 
 const statusList = [
   { value: "Available", label: "Διαθέσιμο" },
@@ -97,8 +98,9 @@ export default function Home(searchParams) {
 
       <Dialog className={""}>
         <DialogTrigger asChild>
-          <Button className="w-[92.5vw] sm:w-[97.5vw] mt-4 mx-4 uppercase text-[12px] font-bold tracking-wide font-[family-name:var(--font-geist-sans)]">
-            <CalendarSearch /> Αναζητηση περιοδου
+          <Button className="w-[92.5vw] sm:w-[97.5vw] mt-4 mx-4 uppercase  font-bold tracking-wide font-[family-name:var(--font-geist-sans)] items-center">
+            <CalendarSearch />
+            <span className="text-[12px]">Αναζητηση περιοδου</span>
           </Button>
         </DialogTrigger>
 
@@ -109,9 +111,17 @@ export default function Home(searchParams) {
 
           <div className="space-y-4 font-[family-name:var(--font-geist-sans)]">
             <div className="flex flex-row gap-2 items-center justify-between">
-              <div className="space-y-1">
+              <DialogBlockItem
+                labelHtmlFor="fromDate"
+                inputId="fromDate"
+                inputType="date"
+                inputValue={fromDate}
+                inputChangeFunc={setFromDate}
+                labelValue="Απο Ημερομηνια"
+              />
+              {/* <div className="space-y-1 flex-1">
                 <Label
-                  htmlFor="date"
+                  htmlFor="fromDate"
                   className={"uppercase text-[10px] font-bold tracking-wide"}
                 >
                   Απο Ημερομηνια
@@ -123,11 +133,11 @@ export default function Home(searchParams) {
                   className={"text-sm"}
                   onChange={(e) => setFromDate(e.target.value)}
                 />
-              </div>
+              </div> */}
 
-              <div className="space-y-1">
+              <div className="space-y-1 flex-1">
                 <Label
-                  htmlFor="date"
+                  htmlFor="toDate"
                   className={"uppercase text-[10px] font-bold tracking-wide"}
                 >
                   Εως Ημερομηνια
@@ -144,7 +154,7 @@ export default function Home(searchParams) {
             <div className="flex flex-row gap-2 items-center justify-between">
               <div className="space-y-1 flex-1">
                 <Label
-                  htmlFor="time"
+                  htmlFor="fromTime"
                   className={"uppercase text-[10px] font-bold tracking-wide"}
                 >
                   Απο ωρα
@@ -159,7 +169,7 @@ export default function Home(searchParams) {
               </div>
               <div className="space-y-1 flex-1">
                 <Label
-                  htmlFor="time"
+                  htmlFor="toTime"
                   className={"uppercase text-[10px] font-bold tracking-wide"}
                 >
                   Εως ωρα
