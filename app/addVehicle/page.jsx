@@ -16,11 +16,11 @@ if (env == "development") {
   supS = process.env.NEXT_PUBLIC_SUPABASE_SCHN;
 } else {
   supUrl = process.env.SUP_SUPABASE_URL;
-  supK = process.env.SERVICE_ANON_KEY;
+  supK = process.env.SUP_SUPABASE_SERVICE_ROLE_KEY;
   supS = process.env.SUP_SUPABASE_SCHN;
 }
 export default async function Instruments() {
   const supabase = createClient(supUrl, supK, { db: { schema: supS } });
   const res = await supabase.from("vehicle").select();
-  return <>{JSON.stringify(res.data, null, 2)}</>;
+  return <pre>{JSON.stringify(res.data, null, 2)}</pre>;
 }
