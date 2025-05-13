@@ -22,5 +22,5 @@ if (env == "development") {
 export default async function Instruments() {
   const supabase = createClient(supUrl, supK, { db: { schema: supS } });
   const res = await supabase.from("vehicle").select();
-  return <pre>{JSON.stringify(res.data, null, 2)}</pre>;
+  return <>{JSON.stringify(res.data, null, 2)}</>;
 }
