@@ -14,6 +14,14 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Calendar,
+  CalendarMonthView,
+  CalendarNextTrigger,
+  CalendarPrevTrigger,
+  CalendarTodayTrigger,
+  CalendarCurrentDate,
+} from "@/components/ui/full-calendar";
 
 const statuses = ["rented", "in maintenance", "in service", "available"];
 
@@ -139,6 +147,35 @@ export default function EditVehiclePage() {
             ) : (
               <p>No reservations found.</p>
             )}
+
+            <Calendar
+              events={[
+                {
+                  id: "1",
+                  start: new Date("2025-05-26T09:30:00Z"),
+                  end: new Date("2025-05-26T14:30:00Z"),
+                  title: "Meeting with John",
+                  color: "pink",
+                },
+                {
+                  id: "2",
+                  start: new Date("2025-05-26T10:00:00Z"),
+                  end: new Date("2025-05-26T10:30:00Z"),
+                  title: "Project Review",
+                  color: "blue",
+                },
+              ]}
+            >
+              <div className="flex flex-row justify-evenly pb-2 font-semibold">
+                <CalendarCurrentDate />
+              </div>
+              <CalendarMonthView />
+              <div className="flex flex-row justify-between w-full">
+                <CalendarPrevTrigger> &lt; </CalendarPrevTrigger>
+                <CalendarTodayTrigger>Σήμερα</CalendarTodayTrigger>
+                <CalendarNextTrigger> &gt; </CalendarNextTrigger>
+              </div>
+            </Calendar>
           </CardContent>
         </Card>
       </TabsContent>
