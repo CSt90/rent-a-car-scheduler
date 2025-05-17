@@ -19,8 +19,8 @@ if (env == "development") {
   supK = process.env.SUP_SUPABASE_ANON_KEY;
   supS = process.env.SUP_SUPABASE_SCHN;
 }
-export default async function Instruments() {
+export default async function addVehicle() {
   const supabase = createClient(supUrl, supK, { db: { schema: supS } });
-  const res = await supabase.from("vehicle").select();
-  return <pre>{JSON.stringify(res.data, null, 2)}</pre>;
+  const { data, error } = await supabase.from("vehicle").select();
+  return <pre>{JSON.stringify({ data, error }, null, 2)}</pre>;
 }
