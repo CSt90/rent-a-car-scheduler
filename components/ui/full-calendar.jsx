@@ -25,7 +25,7 @@ import {
   subWeeks,
   subYears,
 } from "date-fns";
-import { enUS } from "date-fns/locale/en-US";
+import { el } from "date-fns/locale/el";
 import {
   ReactNode,
   createContext,
@@ -72,7 +72,7 @@ const Context = createContext();
 const Calendar = ({
   children,
   defaultDate = new Date(),
-  locale = enUS,
+  locale = el,
   enableHotkeys = true,
   _defaultMode = "month",
   onEventClick,
@@ -147,6 +147,7 @@ const CalendarViewTrigger = forwardRef(({ children, view, ...props }, ref) => {
 CalendarViewTrigger.displayName = "CalendarViewTrigger";
 
 const EventGroup = ({ events, hour }) => {
+  console.log(events);
   return (
     <div className="h-20 border-t last:border-b">
       {events
@@ -279,12 +280,12 @@ const CalendarWeekView = () => {
 
 const CalendarMonthView = () => {
   const { date, view, events, locale } = useCalendar();
+  console.log(events);
 
   const monthDates = useMemo(() => getDaysInMonth(date), [date]);
   const weekDays = useMemo(() => generateWeekdays(locale), [locale]);
 
   if (view !== "month") return null;
-  console.log("Calendar2");
 
   return (
     <div className="h-full flex flex-col">

@@ -37,7 +37,23 @@ export default function EditVehiclePage() {
     status: "available",
     location: "",
   });
-  console.log("+++++++++++++++++++++++++++++++++" + carId);
+
+  const events = [
+    {
+      id: "1",
+      start: new Date("2025-05-26T09:30:00Z"),
+      end: new Date("2025-05-27T14:30:00Z"),
+      title: "Meeting with John",
+      color: "pink",
+    },
+    {
+      id: "2",
+      start: new Date("2025-05-26T10:00:00Z"),
+      end: new Date("2025-05-26T10:30:00Z"),
+      title: "Project Review",
+      color: "blue",
+    },
+  ];
 
   const [reservations, setReservations] = useState([]);
 
@@ -130,8 +146,20 @@ export default function EditVehiclePage() {
       </TabsContent>
 
       <TabsContent value="reservations">
-        <Card>
+        {console.log(new Date("2025-05-26T09:30:00Z"))}
+        <Card className="py-2">
           <CardContent className="p-6 space-y-4">
+            <Calendar events={events}>
+              <div className="flex flex-row justify-evenly pb-2 font-semibold">
+                <CalendarCurrentDate />
+              </div>
+              <CalendarMonthView />
+              <div className="flex flex-row justify-between w-full">
+                <CalendarPrevTrigger> &lt; </CalendarPrevTrigger>
+                <CalendarTodayTrigger>Σήμερα</CalendarTodayTrigger>
+                <CalendarNextTrigger> &gt; </CalendarNextTrigger>
+              </div>
+            </Calendar>
             <h3 className="text-lg font-semibold">Vehicle Reservations</h3>
             {reservations.length ? (
               reservations.map((res) => (
@@ -147,35 +175,6 @@ export default function EditVehiclePage() {
             ) : (
               <p>No reservations found.</p>
             )}
-
-            <Calendar
-              events={[
-                {
-                  id: "1",
-                  start: new Date("2025-05-26T09:30:00Z"),
-                  end: new Date("2025-05-26T14:30:00Z"),
-                  title: "Meeting with John",
-                  color: "pink",
-                },
-                {
-                  id: "2",
-                  start: new Date("2025-05-26T10:00:00Z"),
-                  end: new Date("2025-05-26T10:30:00Z"),
-                  title: "Project Review",
-                  color: "blue",
-                },
-              ]}
-            >
-              <div className="flex flex-row justify-evenly pb-2 font-semibold">
-                <CalendarCurrentDate />
-              </div>
-              <CalendarMonthView />
-              <div className="flex flex-row justify-between w-full">
-                <CalendarPrevTrigger> &lt; </CalendarPrevTrigger>
-                <CalendarTodayTrigger>Σήμερα</CalendarTodayTrigger>
-                <CalendarNextTrigger> &gt; </CalendarNextTrigger>
-              </div>
-            </Calendar>
           </CardContent>
         </Card>
       </TabsContent>
