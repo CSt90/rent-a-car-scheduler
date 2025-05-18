@@ -33,6 +33,7 @@ export default async function EditVehiclePage({ params }) {
   });
   const json = await response.json();
   const vehicleData = {
+    carId: json.carId,
     carModel: json.carModel,
     licensePlate: json.licensePlate,
     color: json.color,

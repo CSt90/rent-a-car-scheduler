@@ -30,7 +30,9 @@ if (env == "development") {
   _BASE_URL_ = "https://rent-a-car-scheduler.vercel.app";
 }
 
-const UserMenu = () => {
+const UserMenu = (props) => {
+  const { pg } = props;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,7 +44,7 @@ const UserMenu = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem variant="secondary" className={"bg-gray-200/65"}>
+          <DropdownMenuItem className={pg == "Home" && "bg-gray-200/65"}>
             <a
               href={`${_BASE_URL_}`}
               className="flex flex-row items-center gap-2"
@@ -51,7 +53,7 @@ const UserMenu = () => {
               Διαθεσιμότητα στόλου
             </a>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className={pg == "Status" && "bg-gray-200/65"}>
             <a
               href={`${_BASE_URL_}/monitor`}
               className="flex flex-row items-center gap-2"
@@ -70,7 +72,9 @@ const UserMenu = () => {
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                className={pg == "addVehicle" && "bg-gray-200/65"}
+              >
                 <a
                   href={`${_BASE_URL_}/addVehicle`}
                   className="flex flex-row items-center gap-2"
@@ -79,7 +83,9 @@ const UserMenu = () => {
                   Προσθήκη οχήματος
                 </a>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                className={pg == "removeVehicle" && "bg-gray-200/65"}
+              >
                 <a
                   href={`${_BASE_URL_}/removeVehicle`}
                   className="flex flex-row items-center gap-2"

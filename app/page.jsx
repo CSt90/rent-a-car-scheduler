@@ -110,7 +110,7 @@ export default function Home(searchParams) {
         {/* <Button variant="outline">
           <Menu />
         </Button> */}
-        <UserMenu />
+        <UserMenu pg="Home" />
       </header>
 
       <Dialog className={""}>

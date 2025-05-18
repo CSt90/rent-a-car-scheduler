@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,6 +38,8 @@ const statuses = ["Διαθέσιμο", "Συντήρηση", "Επισκευή"
 
 const VehicleCard = (props) => {
   const { car, events } = props;
+
+  const router = useRouter();
 
   const [reservations, setReservations] = useState([]);
   const [vehicleData, setVehicleData] = useState({
@@ -130,7 +133,14 @@ const VehicleCard = (props) => {
                 </div>
               )
             )}
-            <Button onClick={handleSave}>Αποθήκευση</Button>
+            <div className="flex flex-row justify-between">
+              <Button onClick={handleSave}>Αποθήκευση</Button>
+              <Button
+                onClick={() => router.push(`../../removeVehicle/${car.carId}`)}
+              >
+                Διαγραφή
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </TabsContent>
