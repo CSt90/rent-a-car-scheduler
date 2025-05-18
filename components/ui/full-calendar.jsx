@@ -114,7 +114,7 @@ const Calendar = ({
         events,
         setEvents,
         locale,
-        enableHotkeys,
+        // enableHotkeys,
         onEventClick,
         onChangeView,
         today: new Date(),
@@ -147,7 +147,7 @@ const CalendarViewTrigger = forwardRef(({ children, view, ...props }, ref) => {
 CalendarViewTrigger.displayName = "CalendarViewTrigger";
 
 const EventGroup = ({ events, hour }) => {
-  console.log(events);
+  // console.log(events);
   return (
     <div className="h-20 border-t last:border-b">
       {events
@@ -280,7 +280,7 @@ const CalendarWeekView = () => {
 
 const CalendarMonthView = () => {
   const { date, view, events, locale } = useCalendar();
-  console.log(events);
+  // console.log(events);
 
   const monthDates = useMemo(() => getDaysInMonth(date), [date]);
   const weekDays = useMemo(() => generateWeekdays(locale), [locale]);

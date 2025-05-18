@@ -22,5 +22,9 @@ if (env == "development") {
 export default async function addVehicle() {
   const supabase = createClient(supUrl, supK, { db: { schema: supS } });
   const { data, error } = await supabase.from("vehicle").select();
-  return <pre>{JSON.stringify({ data, error }, null, 2)}</pre>;
+  return data !== null ? (
+    <pre>{JSON.stringify(data, null, 2)}</pre>
+  ) : (
+    <pre>{JSON.stringify(error, null, 2)}</pre>
+  );
 }
