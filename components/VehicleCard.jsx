@@ -121,7 +121,6 @@ const VehicleCard = (props) => {
               ) : (
                 <div key={key}>
                   <Label htmlFor={key} className={labelsStyles}>
-                    {/* {key.charAt(0).toUpperCase() + key.slice(1)} */}
                     {vehicleDataLabelsEL[key]}
                   </Label>
                   <Input
@@ -133,7 +132,7 @@ const VehicleCard = (props) => {
                 </div>
               )
             )}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-4">
               <Button onClick={handleSave}>Αποθήκευση</Button>
               <Button
                 onClick={() => router.push(`../../removeVehicle/${car.carId}`)}

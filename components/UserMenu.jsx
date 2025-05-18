@@ -62,27 +62,25 @@ const UserMenu = (props) => {
               Κατάσταση οχημάτων
             </a>
           </DropdownMenuItem>
+          <DropdownMenuItem className={pg == "addVehicle" && "bg-gray-200/65"}>
+            <a
+              href={`${_BASE_URL_}/addVehicle`}
+              className="flex flex-row items-center gap-2"
+            >
+              <SquarePlus />
+              Προσθήκη οχήματος
+            </a>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         {/* <DropdownMenuSeparator /> */}
         {/* <DropdownMenuGroup> */}
-        <DropdownMenuSub>
+        {/* <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <FolderCog size={17} className="mr-2" color="#737373" />
             <span>Επεξεργασία στόλου</span>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
-              <DropdownMenuItem
-                className={pg == "addVehicle" && "bg-gray-200/65"}
-              >
-                <a
-                  href={`${_BASE_URL_}/addVehicle`}
-                  className="flex flex-row items-center gap-2"
-                >
-                  <SquarePlus />
-                  Προσθήκη οχήματος
-                </a>
-              </DropdownMenuItem>
               <DropdownMenuItem
                 className={pg == "removeVehicle" && "bg-gray-200/65"}
               >
@@ -94,10 +92,10 @@ const UserMenu = (props) => {
                   Αφαίρεση οχήματος
                 </a>
               </DropdownMenuItem>
-              {/* <DropdownMenuSeparator /> */}
+              <DropdownMenuSeparator />
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
-        </DropdownMenuSub>
+        </DropdownMenuSub> */}
         {/* </DropdownMenuGroup> */}
         {/* <DropdownMenuSeparator /> */}
 
