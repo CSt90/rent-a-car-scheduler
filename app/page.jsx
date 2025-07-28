@@ -79,8 +79,8 @@ export default function Home(searchParams) {
     const filterToDateTime = new Date(`${formattedToDate}T${toTime}`);
 
     // console.log(formattedFromDate);
-    console.log(filterFromDateTime);
-    console.log(filterToDateTime);
+    // console.log(filterFromDateTime);
+    // console.log(filterToDateTime);
 
     // const result = fleet.filter((car) => {
     //   const carAvailable = new Date(car.availableAfter);

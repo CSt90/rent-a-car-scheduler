@@ -8,7 +8,7 @@ const BASE_URL =
     : "https://rent-a-car-scheduler.vercel.app/";
 
 export default async function EditVehiclePage({ params }) {
-  const { id } = params;
+  const { id } = await params;
   const carId = id;
 
   const events = [
@@ -16,14 +16,14 @@ export default async function EditVehiclePage({ params }) {
       id: "1",
       start: new Date("2025-05-26T09:30:00Z"),
       end: new Date("2025-05-27T14:30:00Z"),
-      title: "Meeting with John",
+      title: "Dummy event 1",
       color: "pink",
     },
     {
       id: "2",
       start: new Date("2025-05-26T10:00:00Z"),
       end: new Date("2025-05-26T10:30:00Z"),
-      title: "Project Review",
+      title: "Dummy event 2",
       color: "blue",
     },
   ];
@@ -31,7 +31,12 @@ export default async function EditVehiclePage({ params }) {
   const response = await fetch(`${BASE_URL}/api/vehicles/${carId}`, {
     next: { revalidate: 60 },
   });
-  console.log(`${BASE_URL}/api/vehicles/${carId}`);
+
+  if (!response.ok) {
+    console.error("Data fetching failed");
+    return <div>Error fetching data</div>;
+  }
+
   const json = await response.json();
   const vehicleData = {
     carId: json.carId,
@@ -43,8 +48,6 @@ export default async function EditVehiclePage({ params }) {
     status: "Διαθέσιμο",
     location: json.location,
   };
-
-  console.log(await json);
 
   return (
     <div className="min-h-screen text-gray-800 font-[family-name:var(--font-geist-sans)]">
