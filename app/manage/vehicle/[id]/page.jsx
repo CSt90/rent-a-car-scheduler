@@ -31,6 +31,7 @@ export default async function EditVehiclePage({ params }) {
   const response = await fetch(`${BASE_URL}/api/vehicles/${carId}`, {
     next: { revalidate: 60 },
   });
+  console.log(`${BASE_URL}/api/vehicles/${carId}`);
   const json = await response.json();
   const vehicleData = {
     carId: json.carId,
@@ -42,6 +43,8 @@ export default async function EditVehiclePage({ params }) {
     status: "Διαθέσιμο",
     location: json.location,
   };
+
+  console.log(await json);
 
   return (
     <div className="min-h-screen text-gray-800 font-[family-name:var(--font-geist-sans)]">

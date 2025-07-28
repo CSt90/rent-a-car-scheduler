@@ -160,6 +160,7 @@ const VehicleCard = (props) => {
               </div>
             </Calendar>
             <h3 className="text-lg font-semibold">Επόμενες κρατήσεις</h3>
+            {console.log("Reservations: " + reservations)}
             {reservations.length ? (
               reservations.map((res) => (
                 <div key={res.id} className="border p-3 rounded-xl shadow-sm">
